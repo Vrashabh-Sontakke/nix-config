@@ -83,11 +83,7 @@
     description = "Vrashabh Sontakke";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      thunderbird
-      google-chrome
-      brave
-      discord
-      slack
+    #  thunderbird
     ];
   };
 
@@ -99,15 +95,9 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  
-  # Enable the Flakes feature and the accompanying new nix command-line tool
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    git
-    curl
+  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+  #  wget
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -122,9 +112,6 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-  
-  # copied form nixos one-click-install
-  # users.users.root.openssh.authorizedKeys.keys = rootAuthorizedKeys;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
