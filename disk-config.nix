@@ -8,25 +8,34 @@
         content = {
           type = "gpt";
           partitions = {
-            MBR = {
-              type = "EF02"; # for grub MBR
-              size = "1M";
-            };
+#            boot = {
+#              name = "boot";
+#              size = "1M";
+#              type = "EF02"; #for grub MBR
+#            };
             ESP = {
               type = "EF00";
-              size = "500M";
+              size = "1G";
               content = {
                 type = "filesystem";
                 format = "vfat";
-                mountpoint = "/boot";
+                mountpoint = "/boot/efi";
               };
             };
             root = {
-              size = "100%";
+              end = "-33G";
               content = {
                 type = "filesystem";
                 format = "ext4";
                 mountpoint = "/";
+              };
+            };
+            plainSwap = {
+              size = "100%"
+              content = {
+              type = "swap";
+              discardPolicy = "both";
+              resumeDevice = true; # resume from hibernation from this device
               };
             };
           };
