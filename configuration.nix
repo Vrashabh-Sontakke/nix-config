@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./nvidia.nix
     ];
 
   # Bootloader.
@@ -89,6 +90,9 @@
       discord
       slack
       easyeffects
+      vscode
+      whatsapp-for-linux
+      telegram-desktop
     ];
   };
 
@@ -100,10 +104,14 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
+  
+  # Enable the Flakes feature and the accompanying new nix command-line tool
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim
     wget
-    curl
+    curl 
     git
   ];
 
