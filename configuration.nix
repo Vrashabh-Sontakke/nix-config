@@ -113,7 +113,7 @@
     wget
     curl 
     git
-    lenovo-legion
+    #lenovo-legion
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
