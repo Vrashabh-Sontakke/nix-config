@@ -1,14 +1,20 @@
 { config, lib, pkgs, ... }:
 {
 
-  hardware.amdgpu.initrd.enable = true;
-  boot.kernelModules = [ "amdgpu" ]
-  boot.initrd.kernelModules = [ "nvidia" "amdgpu" ];
+  #hardware.amdgpu.initrd.enable = true;
+  boot.kernelModules = [
+    "nvidia"
+    #"amdgpu" 
+  ];
+  boot.initrd.kernelModules = [ 
+    "nvidia" 
+    #"amdgpu" 
+  ];
   boot.extraModulePackages = [ config.boot.kernelPackages.lenovo-legion-module config.boot.kernelPackages.nvidia_x11 ];
   boot.kernelParams = [ 
     "nvidia_drm.fbdev=1" 
     "nvidia-drm.modeset=1" 
-#    "module_blacklist=amdgpu" 
+    "module_blacklist=amdgpu" 
   ];
 
   hardware.graphics = {
@@ -24,7 +30,11 @@
   };
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia" "modesetting" "amdgpu" ];
+  services.xserver.videoDrivers = [
+    "nvidia" 
+    "modesetting" 
+    #"amdgpu" 
+  ];
 
   hardware.nvidia = {
 
@@ -45,8 +55,8 @@
 #    nvidiaBusId = "PCI:1:0:0";
 #    };
     
-#    # Ensures all GPUs stay awake even during headless mode
-#    nvidiaPersistenced = false;
+    # Ensures all GPUs stay awake even during headless mode
+    nvidiaPersistenced = true;
 
     # Modesetting is required.
     modesetting.enable = true;
@@ -55,7 +65,7 @@
     # Enable this if you have graphical corruption issues or application crashes after waking
     # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
     # of just the bare essentials.
-    powerManagement.enable = true;
+    powerManagement.enable = false;
 
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
@@ -75,6 +85,6 @@
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 }
