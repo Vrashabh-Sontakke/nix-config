@@ -56,7 +56,7 @@
 #    };
     
     # Ensures all GPUs stay awake even during headless mode
-    nvidiaPersistenced = true;
+    #nvidiaPersistenced = true;
 
     # Modesetting is required.
     modesetting.enable = true;
