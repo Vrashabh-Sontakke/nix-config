@@ -11,11 +11,11 @@
     #"amdgpu" 
   #];
   #boot.extraModulePackages = [ config.boot.kernelPackages.lenovo-legion-module config.boot.kernelPackages.nvidia_x11 ];
-  #boot.kernelParams = [ 
-    #"nvidia_drm.fbdev=1" 
-    #"nvidia-drm.modeset=1" 
-    #"module_blacklist=amdgpu" 
-  #];
+  boot.kernelParams = [ 
+    "nvidia_drm.fbdev=1" 
+    "nvidia-drm.modeset=1" 
+    "module_blacklist=amdgpu" 
+  ];
 
   #hardware.graphics = {
     #enable = lib.mkDefault true;
