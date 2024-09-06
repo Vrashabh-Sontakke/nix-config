@@ -1,13 +1,20 @@
 { config, lib, pkgs, ... }:
 {
 
-#  boot.initrd.kernelModules = [ "nvidia" ];
-#  boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
-#  boot.kernelParams = [ 
-#    "nvidia_drm.fbdev=1" 
-#    "nvidia-drm.modeset=1" 
+  hardware.amdgpu.initrd.enable = true;
+  boot.kernelModules = [ "amdgpu" ]
+  boot.initrd.kernelModules = [ "nvidia" "amdgpu" ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.lenovo-legion-module config.boot.kernelPackages.nvidia_x11 ];
+  boot.kernelParams = [ 
+    "nvidia_drm.fbdev=1" 
+    "nvidia-drm.modeset=1" 
 #    "module_blacklist=amdgpu" 
-#  ];
+  ];
+
+  hardware.graphics = {
+    enable = lib.mkDefault true;
+    enable32Bit = lib.mkDefault true;
+  };
 
   # Enable OpenGL
   hardware.opengl = {
@@ -17,7 +24,7 @@
   };
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = ["nvidia" "modesetting" "amdgpu" ];
 
   hardware.nvidia = {
 
